@@ -1,0 +1,24 @@
+#!/bin/bash
+kversion=3.19.0vtcp
+
+#scp aran@neo:/local_data/aran/$kversion.tar.gz ~
+
+#mkdir $HOME/$kversion
+#cd $HOME/$kversion
+#mkdir -p lib/modules
+sudo scp -r aran@neo:/local_data/aran/$kversion/lib/modules/* /lib/modules/
+#sudo scp -r aran@neo:/local_data/aran/$kversion/usr/src/* /usr/src/
+sudo scp -r aran@neo:/local_data/aran/$kversion/System.map-* /boot/
+sudo scp -r aran@neo:/local_data/aran/$kversion/vmlinuz-* /boot/
+sudo scp -r aran@neo:/local_data/aran/$kversion/config-* /boot/
+
+
+#sudo chown root:root *
+#sudo cp -a lib/modules/* /lib/modules/
+#sudo cp -a usr/src/* /usr/src/
+#sudo cp System.map-* /boot/
+#sudo cp vmlinuz-* /boot/
+sudo update-initramfs -c -k $kversion
+sudo update-grub2
+
+#sudo rm -Rf $HOME/$kversion
